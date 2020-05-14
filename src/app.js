@@ -1,5 +1,5 @@
 "use strict";
-import React from "react";
+import React, { Fragment } from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import { createStore, applyMiddleware } from "redux";
@@ -7,27 +7,32 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import logger from "redux-logger";
 // 3. define reducers
 import reducers from "./reducers";
-// IMPORT ACTIONS
-import { addToCart } from "./actions/cartActions";
-import { postBooks, deleteBooks, updateBooks } from "./actions/booksActions";
 import BooksList from "./components/pages/booksList";
+import Main from "./main";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import Menu from "./components/menu";
+import Footer from "./components/footer";
+import BooksForm from "./components/pages/booksForm";
+import Cart from "./components/pages/cart";
+
 const middleware = applyMiddleware(logger);
 
 // 1. create the store
 const store = createStore(reducers, composeWithDevTools(middleware));
 
-ReactDOM.render(
+const Routes = (
   <Provider store={store}>
-    <BooksList />
-  </Provider>,
-  document.getElementById("app")
+    <BrowserRouter>
+      <Fragment>
+        <Menu />
+        <Switch>
+          <Route exact path='/' component={BooksList} />
+          <Route exact path='/admin' component={BooksForm} />
+          <Route exact path='/cart' component={Cart} />
+        </Switch>
+        <Footer />
+      </Fragment>
+    </BrowserRouter>
+  </Provider>
 );
-
-// 2. dispatch actions
-// -->> BOOK ACTIONS <<--
-// CREATE and Dispatch action
-// store.dispatch(
-//   postBooks([
-
-//   ])
-// );
+ReactDOM.render(Routes, document.getElementById("app"));
