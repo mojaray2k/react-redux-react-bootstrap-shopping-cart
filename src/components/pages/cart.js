@@ -121,7 +121,7 @@ class Cart extends Component {
           {cartItemList}
           <Row>
             <Col xs={12}>
-              <h6>Total Amount</h6>
+              <h6>Total Amount: {this.props.totalAmount}</h6>
               <Button onClick={this.open} bsStyle='success' bsSize='small'>
                 PROCEED TO CHECKOUT
               </Button>
@@ -129,12 +129,16 @@ class Cart extends Component {
           </Row>
           <Modal show={this.state.showModal} onHide={this.close}>
             <Modal.Header closeButton>
-              <Modal.Title>Modal heading</Modal.Title>
+              <Modal.Title>Thank You!</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-              <h6>Test</h6>
+              <h6>Your order has been processed</h6>
+              <p>You will receive an email confirmation</p>
             </Modal.Body>
             <Modal.Footer>
+              <Col xs={6}>
+                <h6>total $:{this.props.totalAmount}</h6>
+              </Col>
               <Button onClick={this.close}>Close</Button>
             </Modal.Footer>
           </Modal>
@@ -147,6 +151,7 @@ class Cart extends Component {
 function mapStateToProps(state) {
   return {
     cart: state.cart.cart,
+    totalAmount: state.cart.totalAmount,
   };
 }
 
