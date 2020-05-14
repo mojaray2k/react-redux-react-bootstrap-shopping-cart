@@ -10,8 +10,6 @@ import reducers from "./reducers";
 import BooksList from "./components/pages/booksList";
 import Main from "./main";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import Menu from "./components/menu";
-import Footer from "./components/footer";
 import BooksForm from "./components/pages/booksForm";
 import Cart from "./components/pages/cart";
 
@@ -24,13 +22,13 @@ const Routes = (
   <Provider store={store}>
     <BrowserRouter>
       <Fragment>
-        <Menu />
-        <Switch>
-          <Route exact path='/' component={BooksList} />
-          <Route exact path='/admin' component={BooksForm} />
-          <Route exact path='/cart' component={Cart} />
-        </Switch>
-        <Footer />
+        <Main>
+          <Switch>
+            <Route exact path='/' component={BooksList} />
+            <Route exact path='/admin' component={BooksForm} />
+            <Route exact path='/cart' component={Cart} />
+          </Switch>
+        </Main>
       </Fragment>
     </BrowserRouter>
   </Provider>

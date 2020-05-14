@@ -38,7 +38,11 @@ class Menu extends Component {
             <LinkContainer to='/cart'>
               <NavItem eventKey={2} href='/cart'>
                 Your Cart
-                <Badge>1</Badge>
+                {this.props.cartItemsNumber > 0 ? (
+                  <Badge>{this.props.cartItemsNumber}</Badge>
+                ) : (
+                  ""
+                )}
               </NavItem>
             </LinkContainer>
           </Nav>
