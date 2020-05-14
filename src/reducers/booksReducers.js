@@ -33,7 +33,7 @@ export const booksReducers = function (state = initialState, action) {
       const currentBookToDelete = [...state.books];
       // determine at which index in the books array is the book to be deleted
       const indexToDelete = currentBookToDelete.findIndex(function (book) {
-        return book._id === payload._id;
+        return book._id.toString() === payload;
       });
       return {
         books: [
