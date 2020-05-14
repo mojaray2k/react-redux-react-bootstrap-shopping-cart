@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import {
+  Modal,
   Panel,
   Well,
   Col,
@@ -13,6 +14,22 @@ import { bindActionCreators } from "redux";
 import { deleteCartItem, updateCart } from "../../actions/cartActions";
 
 class Cart extends Component {
+  state = {
+    showModal: false,
+  };
+
+  open = () => {
+    this.setState({
+      showModal: true,
+    });
+  };
+
+  close = () => {
+    this.setState({
+      showModal: false,
+    });
+  };
+
   onDelete(_id) {
     // Create a copy of the current array of books
     const currentBookToDelete = this.props.cart;
@@ -105,11 +122,22 @@ class Cart extends Component {
           <Row>
             <Col xs={12}>
               <h6>Total Amount</h6>
-              <Button bsStyle='success' bsSize='small'>
+              <Button onClick={this.open} bsStyle='success' bsSize='small'>
                 PROCEED TO CHECKOUT
               </Button>
             </Col>
           </Row>
+          <Modal show={this.state.showModal} onHide={this.close}>
+            <Modal.Header closeButton>
+              <Modal.Title>Modal heading</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <h6>Test</h6>
+            </Modal.Body>
+            <Modal.Footer>
+              <Button onClick={this.close}>Close</Button>
+            </Modal.Footer>
+          </Modal>
         </Panel.Body>
       </Panel>
     );
