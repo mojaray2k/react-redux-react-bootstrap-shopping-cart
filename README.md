@@ -1,4 +1,4 @@
-# redux-project-1
+# React Redux Shopping Cart
 A small project that continues to reinforce the principles of Redux
 
 ## Getting Started

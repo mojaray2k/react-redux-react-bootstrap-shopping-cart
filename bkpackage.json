@@ -1,17 +1,24 @@
 {
-  "name": "react-redux-react-bootstrap-shopping-cart",
-  "version": "0.0.0",
-  "private": true,
+  "name": "redux-app-1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
   "scripts": {
-    "start": "node ./bin/www"
+    "server": "node server.js",
+    "webpack": "npx webpack",
+    "dev": "concurrently \"npm run server\" \"npm run webpack\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^5.2.0",
+    "redux-devtools-extension": "^2.13.8",
+    "redux-logger": "^3.0.6",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.11"
   },
   "dependencies": {
-    "cookie-parser": "~1.4.4",
-    "debug": "~2.6.9",
-    "express": "~4.16.1",
-    "http-errors": "~1.6.3",
-    "jade": "~1.11.0",
-    "morgan": "~1.9.1",
     "@babel/core": "^7.9.6",
     "@babel/plugin-proposal-class-properties": "^7.8.3",
     "@babel/plugin-syntax-class-properties": "^7.8.3",
@@ -23,6 +30,7 @@
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-1": "^6.24.1",
+    "express": "^4.17.1",
     "react": "^16.13.1",
     "react-bootstrap": "0.32.1",
     "react-dom": "^16.13.1",
@@ -31,12 +39,5 @@
     "react-router-bootstrap": "^0.25.0",
     "react-router-dom": "^5.2.0",
     "redux": "^4.0.5"
-  },
-  "devDependencies": {
-    "concurrently": "^5.2.0",
-    "redux-devtools-extension": "^2.13.8",
-    "redux-logger": "^3.0.6",
-    "webpack": "^4.43.0",
-    "webpack-cli": "^3.3.11"
   }
 }
