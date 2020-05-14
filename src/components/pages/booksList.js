@@ -5,8 +5,13 @@ import { bindActionCreators } from "redux";
 import { Grid, Col, Row, Button } from "react-bootstrap";
 import { getBooks } from "../../actions/booksActions";
 import BookItem from "./bookItem";
+import BooksForm from "./booksForm";
+import Cart from "./cart";
 
 class BooksList extends Component {
+  state = {
+    disable: false,
+  };
   componentDidMount() {
     //Dispatch an action
     this.props.getBooks();
@@ -14,9 +19,9 @@ class BooksList extends Component {
 
   render() {
     const bookList = this.props.books.map((book) => (
-      <Col xs={12} sm={6} md={4} key={book.id}>
+      <Col xs={12} sm={6} md={4} key={book._id}>
         <BookItem
-          id={book.id}
+          _id={book._id}
           title={book.title}
           description={book.description}
           price={book.price}
@@ -25,7 +30,15 @@ class BooksList extends Component {
     ));
     return (
       <Grid>
-        <Row style={{ marginTop: "15px" }}>{bookList}</Row>
+        <Row>
+          <Cart />
+        </Row>
+        <Row style={{ marginTop: "15px" }}>
+          <Col xs={12} sm={6}>
+            <BooksForm />
+          </Col>
+          {bookList}
+        </Row>
       </Grid>
     );
   }

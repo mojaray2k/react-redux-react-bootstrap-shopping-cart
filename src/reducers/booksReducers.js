@@ -1,19 +1,19 @@
 const initialState = {
   books: [
     {
-      id: 1,
+      _id: 1,
       title: "This is the book title",
       description: "This is the book description",
       price: 33.33,
     },
     {
-      id: 2,
+      _id: 2,
       title: "This is the second book title",
       description: "This is the second book description",
       price: 50.33,
     },
     {
-      id: 3,
+      _id: 3,
       title: "This is the third book title",
       description: "This is the third book description",
       price: 60.33,
@@ -33,7 +33,7 @@ export const booksReducers = function (state = initialState, action) {
       const currentBookToDelete = [...state.books];
       // determine at which index in the books array is the book to be deleted
       const indexToDelete = currentBookToDelete.findIndex(function (book) {
-        return book.id === payload.id;
+        return book._id === payload._id;
       });
       return {
         books: [
@@ -46,7 +46,7 @@ export const booksReducers = function (state = initialState, action) {
       const currentBookToUpdate = [...state.books];
       // determine at which index in the books array is the book to be update
       const indexToUpdate = currentBookToUpdate.findIndex(function (book) {
-        return book.id === payload.id;
+        return book._id === payload._id;
       });
       // Create a new book object with new values and with the same array index of items we want to replace. To achieve this we will use ...spread but we could use concat method too
       const newBookToUpdate = {
