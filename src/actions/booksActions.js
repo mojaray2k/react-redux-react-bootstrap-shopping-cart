@@ -5,7 +5,7 @@ import axios from "axios";
 export const getBooks = () => {
   return function (dispatch) {
     axios
-      .get("/books")
+      .get("/api/books")
       .then((res) => {
         dispatch({
           type: "GET_BOOK",
@@ -25,7 +25,7 @@ export const getBooks = () => {
 export const postBooks = (book) => {
   return function (dispatch) {
     axios
-      .post("/books", book)
+      .post("/api/books", book)
       .then((res) => {
         dispatch({
           type: "POST_BOOK",
@@ -45,7 +45,7 @@ export const postBooks = (book) => {
 export const deleteBooks = (id) => {
   return (dispatch) => {
     axios
-      .delete("/books/" + id)
+      .delete("/api/books/" + id)
       .then((res) => {
         dispatch({
           type: "DELETE_BOOK",
