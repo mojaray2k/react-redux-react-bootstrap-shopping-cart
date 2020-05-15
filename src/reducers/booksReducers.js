@@ -1,35 +1,16 @@
 "use strict";
 
 const initialState = {
-  books: [
-    {
-      _id: 1,
-      title: "This is the book title",
-      description: "This is the book description",
-      price: 33.33,
-    },
-    {
-      _id: 2,
-      title: "This is the second book title",
-      description: "This is the second book description",
-      price: 50.33,
-    },
-    {
-      _id: 3,
-      title: "This is the third book title",
-      description: "This is the third book description",
-      price: 60.33,
-    },
-  ],
+  books: [],
 };
 
 export const booksReducers = function (state = initialState, action) {
-  const { type, payload } = action;
+  const {type, payload} = action;
   switch (type) {
     case "GET_BOOK":
-      return { ...state, books: [...state.books] };
+      return {...state, books: [...payload]};
     case "POST_BOOK":
-      return { books: [...state.books, ...payload] };
+      return {books: [...state.books, ...payload]};
     case "DELETE_BOOK":
       // Create a Copy of the current array of books
       const currentBookToDelete = [...state.books];

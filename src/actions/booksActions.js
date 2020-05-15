@@ -1,25 +1,63 @@
 "use strict";
+import axios from "axios";
 
 // GET A BOOK
 export const getBooks = () => {
-  return {
-    type: "GET_BOOK",
+  return function (dispatch) {
+    axios
+      .get("/books")
+      .then((res) => {
+        dispatch({
+          type: "GET_BOOK",
+          payload: res.data,
+        });
+      })
+      .catch((err) => {
+        dispatch({
+          type: "GET_BOOK_REJECTED",
+          payload: err,
+        });
+      });
   };
 };
 
 // POST A BOOK
 export const postBooks = (book) => {
-  return {
-    type: "POST_BOOK",
-    payload: book,
+  return function (dispatch) {
+    axios
+      .post("/books", book)
+      .then((res) => {
+        dispatch({
+          type: "POST_BOOK",
+          payload: res.data,
+        });
+      })
+      .catch((err) => {
+        dispatch({
+          type: "POST_BOOK_REJECTED",
+          payload: "There was an error, while adding a new book",
+        });
+      });
   };
 };
 
 // DELETE A BOOK
 export const deleteBooks = (id) => {
-  return {
-    type: "DELETE_BOOK",
-    payload: id,
+  return (dispatch) => {
+    axios
+      .delete("/books/" + id)
+      .then((res) => {
+        dispatch({
+          type: "DELETE_BOOK",
+          payload: id,
+        });
+      })
+      .catch((err) => {
+        dispatch({
+          type: "DELETE_BOOK_REJECTED",
+          payload: err,
+        });
+      });
   };
 };
 // UPDATE A BOOK

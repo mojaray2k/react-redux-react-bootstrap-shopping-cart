@@ -55,7 +55,7 @@ app.delete("/books/:_id", (req, res) => {
   });
 });
 
-app.put("/books/:_id", (res, req) => {
+app.put("/books/:_id", (req, res) => {
   const book = req.body;
   const query = {_id: req.params._id};
   // if the field doesn't exist $set will set a new field
