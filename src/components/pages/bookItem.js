@@ -41,15 +41,17 @@ class BookItem extends Component {
     return (
       <Well>
         <Row>
-          <Image src={this.props.images} responsive />
-        </Row>
-        <Row>
-          <h6>{this.props.title}</h6>
-          <p>{this.props.description}</p>
-          <h6>usd. ${this.props.price}</h6>
-          <Button onClick={this.handleCart} bsStyle="primary">
-            Buy Now
-          </Button>
+          <Col xs={12} sm={6}>
+            <Image src={this.props.images} responsive />
+          </Col>
+          <Col xs={12} sm={6}>
+            <h6>{this.props.title}</h6>
+            <p>{this.props.description}</p>
+            <h6>usd. ${this.props.price}</h6>
+            <Button onClick={this.handleCart} bsStyle="primary">
+              Buy Now
+            </Button>
+          </Col>
         </Row>
       </Well>
     );

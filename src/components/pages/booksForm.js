@@ -17,7 +17,12 @@ import {
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
 import {findDOMNode} from "react-dom";
-import {postBooks, deleteBooks, getBooks} from "../../actions/booksActions";
+import {
+  postBooks,
+  deleteBooks,
+  getBooks,
+  resetButton,
+} from "../../actions/booksActions";
 import axios from "axios";
 
 class BooksForm extends Component {
@@ -63,6 +68,15 @@ class BooksForm extends Component {
     this.setState({img: "/images/" + img});
   }
 
+  resetForm() {
+    //RESET the FORM BUTTON
+    this.props.resetButton();
+    findDOMNode(this.refs.title).value = "";
+    findDOMNode(this.refs.description).value = "";
+    this.setState({img: ""});
+    findDOMNode(this.refs.price).value = "";
+  }
+
   render() {
     const booksList = this.props.books.map((book) => {
       return <option key={book._id}>{book._id}</option>;
@@ -106,32 +120,51 @@ class BooksForm extends Component {
           </Col>
           <Col xs={12} sm={6}>
             <Panel style={{padding: "1em"}}>
-              <FormGroup controlId="title">
+              <FormGroup
+                controlId="title"
+                validationState={this.props.validation}
+              >
                 <ControlLabel>Title</ControlLabel>
                 <FormControl
                   type="text"
                   placeholder="Enter Title"
                   ref="title"
                 />
+                <FormControl.Feedback />>
               </FormGroup>
-              <FormGroup controlId="description">
+              <FormGroup
+                controlId="description"
+                validationState={this.props.validation}
+              >
                 <ControlLabel>Description</ControlLabel>
                 <FormControl
                   type="text"
                   placeholder="Enter Description"
                   ref="description"
                 />
+                <FormControl.Feedback />
               </FormGroup>
-              <FormGroup controlId="price">
+              <FormGroup
+                controlId="price"
+                validationState={this.props.validation}
+              >
                 <ControlLabel>Price</ControlLabel>
                 <FormControl
                   type="text"
                   placeholder="Enter Price"
                   ref="price"
                 />
+                <FormControl.Feedback />
               </FormGroup>
-              <Button onClick={this.handleSubmit} bsStyle="primary">
-                Save
+              <Button
+                onClick={
+                  !this.props.msg
+                    ? this.handleSubmit
+                    : this.resetForm.bind(this)
+                }
+                bsStyle={!this.props.style ? "primary" : this.props.style}
+              >
+                {!this.props.msg ? "Save Book" : this.props.msg}
               </Button>
             </Panel>
             <Panel style={{padding: "1em", marginTop: "25px"}}>
@@ -160,11 +193,17 @@ class BooksForm extends Component {
 function mapStateToProps(state) {
   return {
     books: state.books.books,
+    msg: state.books.msg,
+    style: state.books.style,
+    validation: state.books.validation,
   };
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({postBooks, deleteBooks, getBooks}, dispatch);
+  return bindActionCreators(
+    {postBooks, deleteBooks, getBooks, resetButton},
+    dispatch
+  );
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(BooksForm);

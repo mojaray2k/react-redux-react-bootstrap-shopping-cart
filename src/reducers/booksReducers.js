@@ -10,7 +10,22 @@ export const booksReducers = function (state = initialState, action) {
     case "GET_BOOK":
       return {...state, books: [...payload]};
     case "POST_BOOK":
-      return {books: [...state.books, ...payload]};
+      return {
+        ...state,
+        books: [...state.books, ...payload],
+        msg: "Saved! Click again to add another book",
+        style: "success",
+        validation: "success",
+      };
+    case "POST_BOOK_REJECTED":
+      return {
+        ...state,
+        msg: "Please, try again",
+        style: "danger",
+        validation: "error",
+      };
+    case "RESET_BUTTON":
+      return {...state, msg: null, style: "primary", validation: null};
     case "DELETE_BOOK":
       // Create a Copy of the current array of books
       const currentBookToDelete = [...state.books];

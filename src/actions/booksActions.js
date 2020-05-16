@@ -67,3 +67,10 @@ export const updateBooks = (book) => {
     payload: book,
   };
 };
+
+// BOOK FORM RESET BUTTON
+export const resetButton = () => {
+  return {
+    type: "RESET_BUTTON",
+  };
+};
