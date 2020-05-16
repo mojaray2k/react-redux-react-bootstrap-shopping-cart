@@ -1,9 +1,9 @@
 "use strict";
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
-import { Grid, Col, Row, Button } from "react-bootstrap";
-import { getBooks } from "../../actions/booksActions";
+import React, {Component} from "react";
+import {connect} from "react-redux";
+import {bindActionCreators} from "redux";
+import {Grid, Col, Row, Button} from "react-bootstrap";
+import {getBooks} from "../../actions/booksActions";
 import BookItem from "./bookItem";
 import BooksForm from "./booksForm";
 import Cart from "./cart";
@@ -33,12 +33,12 @@ class BooksList extends Component {
         <Row>
           <Cart />
         </Row>
-        <Row style={{ marginTop: "15px" }}>
-          <Col xs={12} sm={6}>
+        <Row style={{marginTop: "15px"}}>
+          <Col>
             <BooksForm />
           </Col>
-          {bookList}
         </Row>
+        <Row>{bookList}</Row>
       </Grid>
     );
   }

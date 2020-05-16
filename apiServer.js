@@ -129,7 +129,7 @@ app.get("/images", (req, res) => {
       filesArr.push({name: file});
     });
     // SEND THE JSON RESPONSE WITH THE ARRAY
-    res.json(files);
+    res.json(filesArr);
   });
 });
 
