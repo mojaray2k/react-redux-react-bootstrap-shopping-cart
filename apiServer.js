@@ -43,7 +43,7 @@ app.post("/cart", (req, res) => {
   req.session.cart = cart;
   req.session.save((err) => {
     if (err) {
-      throw err;
+      console.error(err);
     }
     res.json(req.session.cart);
   });
@@ -62,7 +62,7 @@ app.post("/books", (req, res) => {
 
   Books.create(book, (err, books) => {
     if (err) {
-      throw err;
+      console.error(err);
     }
     res.json(books);
   });
@@ -71,7 +71,7 @@ app.post("/books", (req, res) => {
 app.get("/books", (req, res) => {
   Books.find((err, books) => {
     if (err) {
-      throw err;
+      console.error(err);
     }
     res.json(books);
   });
@@ -105,7 +105,7 @@ app.put("/books/:_id", (req, res) => {
 
   Books.findByIdAndUpdate(query, update, options, (err, books) => {
     if (err) {
-      throw err;
+      console.error(err);
     }
     res.json(books);
   });
