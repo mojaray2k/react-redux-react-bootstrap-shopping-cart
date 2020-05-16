@@ -11,12 +11,16 @@ import {
   ButtonGroup,
 } from "react-bootstrap";
 import {bindActionCreators} from "redux";
-import {deleteCartItem, updateCart} from "../../actions/cartActions";
+import {deleteCartItem, updateCart, getCart} from "../../actions/cartActions";
 
 class Cart extends Component {
   state = {
     showModal: false,
   };
+
+  componentDidMount() {
+    this.props.getCart();
+  }
 
   open = () => {
     this.setState({
@@ -160,6 +164,7 @@ function mapDispatchToProps(dispatch) {
     {
       deleteCartItem,
       updateCart,
+      getCart,
     },
     dispatch
   );

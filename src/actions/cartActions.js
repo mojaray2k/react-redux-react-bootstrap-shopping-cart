@@ -1,10 +1,43 @@
 "use strict";
+import axios from "axios";
+
+// GET CART
+export const getCart = () => {
+  return function (dispatch) {
+    axios
+      .get("/api/cart")
+      .then((res) => {
+        dispatch({
+          type: "GET_CART",
+          payload: res.data,
+        });
+      })
+      .catch((err) => {
+        dispatch({
+          type: "GET_CART_REJECTED",
+          msg: "error when getting the cart",
+        });
+      });
+  };
+};
 
 // ADD TO CART
-export const addToCart = (book) => {
-  return {
-    type: "ADD_TO_CART",
-    payload: book,
+export const addToCart = (cart) => {
+  return function (dispatch) {
+    axios
+      .post("/api/cart", cart)
+      .then((res) => {
+        dispatch({
+          type: "ADD_TO_CART",
+          payload: res.data,
+        });
+      })
+      .catch((err) => {
+        dispatch({
+          type: "ADD_TO_CART_REJECTED",
+          msg: "error when adding to the cart",
+        });
+      });
   };
 };
 
@@ -24,16 +57,40 @@ export const updateCart = (_id, unit, cart) => {
     ...currentBookToUpdate.slice(indexToUpdate + 1),
   ];
 
-  return {
-    type: "UPDATE_CART",
-    payload: cartUpdate,
+  return function (dispatch) {
+    axios
+      .post("/api/cart", cartUpdate)
+      .then((res) => {
+        dispatch({
+          type: "UPDATE_CART",
+          payload: res.data,
+        });
+      })
+      .catch((err) => {
+        dispatch({
+          type: "UPDATE_CART_REJECTED",
+          msg: "error when updating to the cart",
+        });
+      });
   };
 };
 
 // DELETE TO CART
 export const deleteCartItem = (cart) => {
-  return {
-    type: "DELETE_CART_ITEM",
-    payload: cart,
+  return function (dispatch) {
+    axios
+      .post("/api/cart", cart)
+      .then((res) => {
+        dispatch({
+          type: "DELETE_CART_ITEM",
+          payload: res.data,
+        });
+      })
+      .catch((err) => {
+        dispatch({
+          type: "DELETE_CART_ITEM_REJECTED",
+          msg: "error when deleting an item from the cart",
+        });
+      });
   };
 };

@@ -3,6 +3,8 @@ const logger = require("morgan");
 const cookieParser = require("cookie-parser");
 const mongoose = require("mongoose");
 const Books = require("./models/books");
+const session = require("express-session");
+const MongoStore = require("connect-mongo")(session);
 
 const app = express();
 
@@ -20,7 +22,39 @@ mongoose
   })
   .then(() => console.log("DB connected"));
 
+const db = mongoose.connection;
+db.on("error", console.error.bind(console, "# MongoDB - connection error: "));
+// --->>> SET UP SESSIONS <<<---
+app.use(
+  session({
+    secret: "mySecretString",
+    saveUninitialized: false,
+    resave: false,
+    cookie: {maxAge: 1000 * 60 * 60 * 24 * 2},
+    store: new MongoStore({mongooseConnection: db, ttl: 2 * 24 * 60 * 60}),
+    //ttl stand for time to leave 2 days 24 hours 60 minutes 60 seconds
+  })
+);
+// --->>> END SESSION SET UP <<<---
+
 // API's
+app.post("/cart", (req, res) => {
+  const cart = req.body;
+  req.session.cart = cart;
+  req.session.save((err) => {
+    if (err) {
+      throw err;
+    }
+    res.json(req.session.cart);
+  });
+});
+
+app.get("/cart", (req, res) => {
+  if (typeof req.session.cart !== undefined) {
+    res.json(req.session.cart);
+  }
+});
+
 app.post("/books", (req, res) => {
   const book = req.body;
 
