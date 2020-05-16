@@ -17,7 +17,7 @@ import {
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
 import {findDOMNode} from "react-dom";
-import {postBooks, deleteBooks} from "../../actions/booksActions";
+import {postBooks, deleteBooks, getBooks} from "../../actions/booksActions";
 import axios from "axios";
 
 class BooksForm extends Component {
@@ -38,6 +38,7 @@ class BooksForm extends Component {
           img: "",
         });
       });
+    this.props.getBooks();
   }
 
   handleSubmit = () => {
@@ -45,6 +46,7 @@ class BooksForm extends Component {
       {
         title: findDOMNode(this.refs.title).value,
         description: findDOMNode(this.refs.description).value,
+        images: findDOMNode(this.refs.images).value,
         price: findDOMNode(this.refs.price).value,
       },
     ];
@@ -86,7 +88,7 @@ class BooksForm extends Component {
                 <FormControl
                   name="imageSelect"
                   type="text"
-                  ref="image"
+                  ref="images"
                   value={this.state.img}
                   readOnly
                 />
@@ -162,7 +164,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({postBooks, deleteBooks}, dispatch);
+  return bindActionCreators({postBooks, deleteBooks, getBooks}, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(BooksForm);
