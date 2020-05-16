@@ -37,7 +37,7 @@ app.use(
 );
 // --->>> END SESSION SET UP <<<---
 
-// API's
+// --->>> Cart API <<<---
 app.post("/cart", (req, res) => {
   const cart = req.body;
   req.session.cart = cart;
@@ -54,7 +54,9 @@ app.get("/cart", (req, res) => {
     res.json(req.session.cart);
   }
 });
+// --->>> END Cart API <<<---
 
+// --->>> Books API <<<---
 app.post("/books", (req, res) => {
   const book = req.body;
 
@@ -108,7 +110,30 @@ app.put("/books/:_id", (req, res) => {
     res.json(books);
   });
 });
-// END API's
+/// --->>> END OF BOOK API <<<---
+
+// --->>> GET BOOK IMAGES API <<<---
+app.get("/images", (req, res) => {
+  const imgFolder = __dirname + "/public/images/";
+  // REQUIRE FILE SYSTEM
+  const fs = require("fs");
+  // READ ALL FILES IN THE DIRECTORY
+  fs.readdir(imgFolder, (err, files) => {
+    if (err) {
+      return console.error(err);
+    }
+    //CREATE AN EMPTY ARRAY
+    const filesArr = [];
+    // ITERATE OVER ALL IMAGES IN THE DIRECTORY AND ADD THEM TO THE ARRAY
+    files.forEach((file) => {
+      filesArr.push({name: file});
+    });
+    // SEND THE JSON RESPONSE WITH THE ARRAY
+    res.json(files);
+  });
+});
+
+// --->>> END OF GET BOOK IMAGES API <<<---
 
 app.listen(5007, (err) => {
   if (err) {
