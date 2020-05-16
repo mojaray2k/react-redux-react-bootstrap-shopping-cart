@@ -1,9 +1,15 @@
-import React, { Component, Fragment } from "react";
+import React, {Component, Fragment} from "react";
 import Menu from "./components/menu";
 import Footer from "./components/footer";
-import { connect } from "react-redux";
+import {connect} from "react-redux";
+import {bindActionCreators} from "redux";
+import {getCart} from "./actions/cartActions";
 
 class Main extends Component {
+  componentDidMount() {
+    this.props.getCart();
+  }
+
   render() {
     return (
       <Fragment>
@@ -21,4 +27,13 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(Main);
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators(
+    {
+      getCart,
+    },
+    dispatch
+  );
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Main);
