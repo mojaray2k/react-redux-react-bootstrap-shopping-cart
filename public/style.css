@@ -8,21 +8,18 @@ body {
   max-width: 900px;
   padding: 0 15px;
 }
-
-.container .footer-text {
+.container .footer-text{
   margin: 20px 0;
 }
-
-.badge {
+.badge{
   background-color: #e4aa48;
 }
-
 button.link {
   background: none;
   border: none;
-  margin: 0;
-  padding: 3px;
+  margin:0;
+  padding: 3;
   outline: none;
   outline-offset: 0;
-  color: white;
+  color: white
 }

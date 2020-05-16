@@ -1,37 +1,28 @@
 "use strict";
-import React, {Fragment} from "react";
-import ReactDOM from "react-dom";
+// REACT
+import React from "react";
+import {render} from "react-dom";
 import {Provider} from "react-redux";
-import {createStore, applyMiddleware} from "redux";
-import {composeWithDevTools} from "redux-devtools-extension";
+// REACT-ROUTER
+import {BrowserRouter} from "react-router-dom";
+//import {Router, Route, IndexRoute, browserHistory} from 'react-router';
+
+import {applyMiddleware, createStore} from "redux";
 import logger from "redux-logger";
 import thunk from "redux-thunk";
-// 3. define reducers
-import reducers from "./reducers";
-import BooksList from "./components/pages/booksList";
-import Main from "./main";
-import {BrowserRouter, Route, Switch} from "react-router-dom";
-import BooksForm from "./components/pages/booksForm";
-import Cart from "./components/pages/cart";
 
+// IMPORT COMBINED REDUCERS
+import reducers from "./reducers/index";
 const middleware = applyMiddleware(thunk, logger);
+// WE WILL PASS INITIAL STATE FROM SERVER STORE
+const initialState = window.INITIAL_STATE;
+const store = createStore(reducers, initialState, middleware);
 
-// 1. create the store
-const store = createStore(reducers, composeWithDevTools(middleware));
-
+import routes from "./routes";
 const Routes = (
   <Provider store={store}>
-    <BrowserRouter>
-      <Fragment>
-        <Main>
-          <Switch>
-            <Route exact path="/" component={BooksList} />
-            <Route exact path="/admin" component={BooksForm} />
-            <Route exact path="/cart" component={Cart} />
-          </Switch>
-        </Main>
-      </Fragment>
-    </BrowserRouter>
+    <BrowserRouter>{routes}</BrowserRouter>
   </Provider>
 );
-ReactDOM.render(Routes, document.getElementById("app"));
+
+render(Routes, document.getElementById("app"));

@@ -1,80 +1,55 @@
-export const cartReducers = function (state = {cart: []}, action) {
-  const {type, payload, _id, unit} = action;
+"use strict"
 
-  switch (type) {
+// CART REDUCERS
+export function cartReducers(state={cart:[]}, action) {
+  switch(action.type){
     case "GET_CART":
-      return {
-        ...state,
-        cart: payload,
-        totalAmount: totals(payload).amount,
-        totalQty: totals(payload).qty,
-      };
+    return{...state,
+      cart:action.payload,
+      totalAmount:totals(action.payload).amount,
+      totalQty: totals(action.payload).qty
+    }
+    break;
     case "ADD_TO_CART":
-      return {
-        ...state,
-        cart: payload,
-        totalAmount: totals(payload).amount,
-        totalQty: totals(payload).qty,
-      };
-
+    return {...state,
+      cart:action.payload,
+      totalAmount: totals(action.payload).amount,
+      totalQty: totals(action.payload).qty
+    }
+    break;
     case "UPDATE_CART":
-      // Create a Copy of the current cart array
-      // const currentBookToUpdate = [...state.cart];
-      // const indexToUpdate = currentBookToUpdate.findIndex((book) => {
-      //   return book._id === action._id;
-      // });
-      // const newBookToUpdate = {
-      //   ...currentBookToUpdate[indexToUpdate],
-      //   quantity: currentBookToUpdate[indexToUpdate].quantity + action.unit,
-      // };
-      // let cartUpdate = [
-      //   ...currentBookToUpdate.slice(0, indexToUpdate),
-      //   newBookToUpdate,
-      //   ...currentBookToUpdate.slice(indexToUpdate + 1),
-      // ];
-      // return {
-      //   ...state,
-      //   cart: cartUpdate,
-      //   totalAmount: totals(cartUpdate).amount,
-      //   totalQty: totals(cartUpdate).qty,
-      // };
-      return {
-        ...state,
-        cart: payload,
-        totalAmount: totals(payload).amount,
-        totalQty: totals(payload).qty,
-      };
-
+    return {...state,
+      cart:action.payload,
+      totalAmount: totals(action.payload).amount,
+      totalQty: totals(action.payload).qty
+    }
+    break;
     case "DELETE_CART_ITEM":
-      return {
-        ...state,
-        cart: payload,
-        totalAmount: totals(payload).amount,
-        totalQty: totals(payload).qty,
-      };
-
-    default:
-      return state;
+    return {...state,
+      cart:action.payload,
+      totalAmount: totals(action.payload).amount,
+      totalQty: totals(action.payload).qty
+    }
+    break;
   }
-};
+  return state
+}
 
 // CALCULATE TOTALS
-export function totals(payload) {
-  const totalAmount = payload
-    .map((cart) => {
-      return cart.price * cart.quantity;
-    })
-    .reduce((a, b) => {
-      return a + b;
-    }, 0); // start the sum from an index of 0
+export function totals(payloadArr){
 
-  const totalQty = payload
-    .map((qty) => {
-      return qty.quantity;
-    })
-    .reduce((a, b) => {
-      return a + b;
-    }, 0);
+  const totalAmount = payloadArr.map(function(cartArr){
+    return cartArr.price * cartArr.quantity;
+  }).reduce(function(a, b) {
+    return a + b;
+  }, 0); //start summing from index0
 
-  return {amount: totalAmount.toFixed(2), qty: totalQty};
+
+  const totalQty = payloadArr.map(function(qty){
+    return qty.quantity;
+  }).reduce(function(a, b) {
+    return a + b;
+  }, 0);
+
+  return {amount:totalAmount.toFixed(2), qty:totalQty}
 }

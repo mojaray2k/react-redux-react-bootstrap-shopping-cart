@@ -1,17 +1,15 @@
-import React, { Component } from "react";
+"use strict"
+import React from 'react';
 
-class Footer extends Component {
-  render() {
-    return (
-      <footer className='footer-text-center'>
-        <div className='container'>
-          <p className='footer-text'>
-            Copyright 2020 Imagination Everywhere. All Rights Reserved
-          </p>
-        </div>
-      </footer>
+class Footer extends React.Component{
+  render(){
+    return(
+        <footer className="footer text-center">
+          <div className="container">
+            <p className="footer-text">Copyright 2017 BooksShop. All rights reserved</p>
+          </div>
+        </footer>
     );
   }
 }
-
-export default Footer;
+export default Footer

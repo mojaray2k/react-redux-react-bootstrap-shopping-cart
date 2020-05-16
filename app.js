@@ -1,30 +1,42 @@
-const createError = require("http-errors");
-const express = require("express");
-const path = require("path");
+require("babel-core/register")({
+  "presets": ["es2015", "react", "stage-1"],
+});
+
+var express = require("express");
+var path = require("path");
+var favicon = require("serve-favicon");
+var logger = require("morgan");
 //PROXY
-const httpProxy = require("http-proxy");
+var httpProxy = require("http-proxy");
+// REQUEST HANDLER FOR SERVER-SIDE RENDERING
+var requestHandler = require("./requestHandler.js");
 
-const app = express();
+var app = express();
 
-// PROXY to api
+app.use(logger("dev"));
+
+//PROXY TO API
 const apiProxy = httpProxy.createProxyServer({
   target: "http://localhost:5007",
 });
-
-app.use("/api", (req, res) => {
+app.use("/api", function (req, res) {
   apiProxy.web(req, res);
 });
-// END PROXY to api
+// END PROXY ///
 
+// uncomment after placing your favicon in /public
+//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(express.static(path.join(__dirname, "public")));
 
-app.get("*", (req, res) => {
-  res.sendFile(path.resolve(__dirname, "public", "index.html"));
-});
+app.set("view engine", "ejs");
+
+app.use(requestHandler);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
-  next(createError(404));
+  var err = new Error("Not Found");
+  err.status = 404;
+  next(err);
 });
 
 // error handler

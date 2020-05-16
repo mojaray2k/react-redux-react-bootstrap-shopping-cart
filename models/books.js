@@ -1,13 +1,12 @@
-"use strict";
-const mongoose = require("mongoose");
+"use strict"
+var mongoose = require('mongoose');
 
-const booksSchema = mongoose.Schema({
+var booksSchema = mongoose.Schema({
   title: String,
   description: String,
   images: String,
-  price: Number,
+  price: Number
 });
 
-const Books = mongoose.model("Books", booksSchema);
-
+var Books = mongoose.model('Books', booksSchema);
 module.exports = Books;
