@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
+import React, {Component} from "react";
+import {connect} from "react-redux";
 import {
   Modal,
   Panel,
@@ -10,8 +10,8 @@ import {
   Label,
   ButtonGroup,
 } from "react-bootstrap";
-import { bindActionCreators } from "redux";
-import { deleteCartItem, updateCart } from "../../actions/cartActions";
+import {bindActionCreators} from "redux";
+import {deleteCartItem, updateCart} from "../../actions/cartActions";
 
 class Cart extends Component {
   state = {
@@ -46,12 +46,12 @@ class Cart extends Component {
   }
 
   onIncrement(_id) {
-    this.props.updateCart(_id, 1);
+    this.props.updateCart(_id, 1, this.props.cart);
   }
 
   onDecrement(_id, quantity) {
     if (quantity > 1) {
-      this.props.updateCart(_id, -1);
+      this.props.updateCart(_id, -1, this.props.cart);
     }
   }
 
@@ -71,7 +71,7 @@ class Cart extends Component {
         <Panel key={c._id}>
           <Row>
             <Col xs={12} sm={4}>
-              <h6 style={{ paddingLeft: "10px" }}>{c.title}</h6>
+              <h6 style={{paddingLeft: "10px"}}>{c.title}</h6>
               {"  "}
             </Col>
             <Col xs={12} sm={2}>
@@ -80,31 +80,31 @@ class Cart extends Component {
             </Col>
             <Col xs={12} sm={2}>
               <h6>
-                qty. <Label bsStyle='success'>{c.quantity}</Label>
+                qty. <Label bsStyle="success">{c.quantity}</Label>
               </h6>
               {"  "}
             </Col>
             <Col xs={6} sm={4}>
-              <ButtonGroup style={{ minWith: "300px" }}>
+              <ButtonGroup style={{minWith: "300px"}}>
                 <Button
                   onClick={this.onDecrement.bind(this, c._id, c.quantity)}
-                  bsStyle='default'
-                  bsSize='small'
+                  bsStyle="default"
+                  bsSize="small"
                 >
                   -
                 </Button>
                 <Button
                   onClick={this.onIncrement.bind(this, c._id)}
-                  bsStyle='default'
-                  bsSize='small'
+                  bsStyle="default"
+                  bsSize="small"
                 >
                   +
                 </Button>
                 {"     "}
                 <Button
                   onClick={this.onDelete.bind(this, c._id)}
-                  bsStyle='danger'
-                  bsSize='small'
+                  bsStyle="danger"
+                  bsSize="small"
                 >
                   DELETE
                 </Button>
@@ -115,14 +115,14 @@ class Cart extends Component {
       );
     }, this);
     return (
-      <Panel bsStyle='primary'>
+      <Panel bsStyle="primary">
         <Panel.Heading>Cart</Panel.Heading>
         <Panel.Body>
           {cartItemList}
           <Row>
             <Col xs={12}>
               <h6>Total Amount: {this.props.totalAmount}</h6>
-              <Button onClick={this.open} bsStyle='success' bsSize='small'>
+              <Button onClick={this.open} bsStyle="success" bsSize="small">
                 PROCEED TO CHECKOUT
               </Button>
             </Col>

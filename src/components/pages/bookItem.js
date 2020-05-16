@@ -1,8 +1,8 @@
-import React, { Component } from "react";
-import { Well, Col, Row, Button } from "react-bootstrap";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
-import { addToCart, updateCart } from "../../actions/cartActions";
+import React, {Component} from "react";
+import {Well, Col, Row, Button} from "react-bootstrap";
+import {connect} from "react-redux";
+import {bindActionCreators} from "redux";
+import {addToCart, updateCart} from "../../actions/cartActions";
 
 class BookItem extends Component {
   handleCart = () => {
@@ -28,7 +28,7 @@ class BookItem extends Component {
         this.props.addToCart(book);
       } else {
         // we need to update quantity
-        this.props.updateCart(_id, 1);
+        this.props.updateCart(_id, 1, this.props.cart);
       }
     } else {
       // cart is empty
@@ -44,7 +44,7 @@ class BookItem extends Component {
             <h6>{this.props.title}</h6>
             <p>{this.props.description}</p>
             <h6>usd. {this.props.price}</h6>
-            <Button onClick={this.handleCart} bsStyle='primary'>
+            <Button onClick={this.handleCart} bsStyle="primary">
               Buy Now
             </Button>
           </Col>

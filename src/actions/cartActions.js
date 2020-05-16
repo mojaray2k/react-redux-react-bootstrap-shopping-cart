@@ -9,11 +9,24 @@ export const addToCart = (book) => {
 };
 
 // UPDATE CART
-export const updateCart = (_id, unit) => {
+export const updateCart = (_id, unit, cart) => {
+  const currentBookToUpdate = cart;
+  const indexToUpdate = currentBookToUpdate.findIndex((book) => {
+    return book._id === _id;
+  });
+  const newBookToUpdate = {
+    ...currentBookToUpdate[indexToUpdate],
+    quantity: currentBookToUpdate[indexToUpdate].quantity + unit,
+  };
+  let cartUpdate = [
+    ...currentBookToUpdate.slice(0, indexToUpdate),
+    newBookToUpdate,
+    ...currentBookToUpdate.slice(indexToUpdate + 1),
+  ];
+
   return {
     type: "UPDATE_CART",
-    _id: _id,
-    unit: unit,
+    payload: cartUpdate,
   };
 };
 
